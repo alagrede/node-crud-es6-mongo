@@ -9,11 +9,15 @@ export const create = (req, res) => {
         });
     }
 
+    // Example unpack params
+    // const { title, content } = req.body;
+
     // Create a Note
     const note = new Note({
         title: req.body.title || "Untitled Note", 
         content: req.body.content
     });
+
 
     // Save Note in the database
     note.save()
@@ -24,6 +28,19 @@ export const create = (req, res) => {
             message: err.message || "Some error occurred while creating the Note."
         });
     });
+
+    /*
+    // Another example to proceed request
+    let valErr = note.validateSync();
+    note.save(function(err) {
+        if (err) {
+            res.json({ error: true, data: valErr ? valErr : err, message: "Some error occurred while creating the Note" });
+        } else {
+            res.json({ error: false, data: newUser, message: "Success" });
+        }
+    });
+    */
+
 };
 
 // Retrieve and return all notes from the database.
